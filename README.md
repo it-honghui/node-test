@@ -6,6 +6,9 @@
 - graphql-express
 - merkletreejs-solidity
 - metacoin
+- subgraph
+  - cryptopunks
+  - opensea
 - truffle-init
 - vue-test
 - vue-test2

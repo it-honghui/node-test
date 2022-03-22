@@ -4,10 +4,10 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ it-whh/cryptopunks",
-    "create-local": "graph create --node http://localhost:8020/ it-whh/cryptopunks",
-    "remove-local": "graph remove --node http://localhost:8020/ it-whh/cryptopunks",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 it-whh/cryptopunks",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ it-wwh/cryptopunks",
+    "create-local": "graph create --node http://localhost:8020/ it-wwh/cryptopunks",
+    "remove-local": "graph remove --node http://localhost:8020/ it-wwh/cryptopunks",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 it-wwh/cryptopunks",
     "test": "graph build && graph test CryptoPunks",
     "test:force": "rm -rf ./tests/.bin ./build && yarn test"
   },

@@ -1,6 +1,13 @@
 # subgraph
 
-## 一、子图工作室
+## 一、概念
+- indexer-索引人：提供服务器、数据库（PostgreSQL/Postgres）用来运行开发者开发的子图（爬虫程序，通过和主链交互，通过监听区块链的event事件、call调用，爬取特定合约的交易数据然后保存到本地供用户查询）。消费者需要向indexer支付相应的查询费用，以token (GRT)支付，另外还每年会有3%的通胀平均分配给indexer，如果查询的数据不真实，indexer质押的GRT会被扣除一部分作为惩罚（法官的角色来判断）。类似以太坊（POS）中以后的一个个节点。成为indexer节点需要质押10W GRT （可以获得收益，可以自定义私有链RPC）。
+- delegate-委托人：类似以太坊中，有以太币，不想运行节点，但是想获得运行节点的收益，就可以把你的以太币质押给以太坊的节点的这样一种角色。买了GRT并进行质押给indexer的用户。
+- Curator-策展人：判断相应子图质量的高低，可以对感兴趣的子图进行质押，之后该子图才能被indexer索引到开始扫描。
+- 开发者：开发子图（绑定合约），部署到IFPS（需要上链）。存入GRT，成为策展人、委托人，拿到 key，请求API。
+
+## 二、子图工作室
+> 只支持以太主网和rinkeby测试网，发布子图需要上链消耗ETH，通过质押GRT，可以将自己发布的子图被indexer（扫快服务）索引到。提供测试API，测试完毕后发布子图子图浏览器，可以通过颁发key（用于计费）提供他人查询，可以得到GRT token代币奖励。
 1. 安装 Graph CLI
 ```shell
 # NPM
@@ -37,7 +44,14 @@ graph deploy --studio <SUBGRAPH_SLUG>
 
 6.检查你的日志
 
-## 二、托管服务(hosted service)
+## 三、托管服务(hosted service)
+> 支持更多的网络：mainnet、kovan、rinkeby、ropsten、goerli、poa-core、poa-sokol、xdai、near-mainnet、near-testnet、matic、mumbai、fantom、bnb、chapel、clover、avalanche、fuji、celo、celo-alfajores、fuse、moonriver、mbase、arbitrum-one、arbitrum-rinkeby、optimism、optimism-kovan、aurora、aurora-testnet
+
+> 缺点：需要定期查询，否则30天会被删除，必须重新部署子图才能重新被索引到。(pancakeswap 用的是托管服务)
+
+> pancakeswap: https://github.com/pancakeswap/pancake-subgraph 
+> https://thegraph.com/hosted-service/subgraph/pancakeswap/nft-market
+> https://api.thegraph.com/subgraphs/name/pancakeswap/nft-market/graphql
 1. 安装 Graph CLI
 ```shell
 # NPM
@@ -79,7 +93,8 @@ graph deploy --product hosted-service <GITHUB_USER>/<SUBGRAPH NAME>
 6.检查你的日志
 7.查询你的子图
 
-## 三、Graph Node 本地搭建
+## 四、Graph Node 本地搭建
+> 可以通过搭建 Graph Node 节点来索引，扫描自定义的私链或公链，然后将开发的子图部署到私有 Graph Node 节点即可
 
 1. 搭建 graph-node
    出于便捷的考虑，我们使用官方提供的 docker compose 来进行节点、数据库、IPFS 的部署。
@@ -138,6 +153,11 @@ services:
 
 ```bash
 docker-compose -f docker-compose.yml up -d
+```
+
+3. 部署开发的子图
+```bash
+graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 it-wwh/nft-market
 ```
 
 ---

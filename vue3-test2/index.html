@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite App</title>
+  <script src='https://www.google.com/recaptcha/api.js?render=6LfdowcbAAAAANHqnTEh2SOEE1PGcR3rTxEp_5r2'></script>
+  <script src='https://cdn.bootcss.com/jquery/1.12.0/jquery.min.js'></script>
+  <script>
+    grecaptcha.ready(function () {
+      grecaptcha.execute('6LfdowcbAAAAANHqnTEh2SOEE1PGcR3rTxEp_5r2', {action: 'submit'}).then(function (token) {
+        console.log(token)
+        $.ajax({
+          url: "https://att-indo.txy.fun/att-api/contactDetails",
+          // url: "http://127.0.0.1:9000/contactDetails",
+          data: {
+            "token": token,
+            "action": "submit",
+            "name": "honghui中文",
+            "telegram": "honghui-telegram",
+            "email": "850434439@qq.com",
+            "phoneAreaCode": "+86",
+            "phone": "17611015280",
+            "whatsAppAreaCode": "+86",
+            "whatsApp": "17611015280"
+          },
+          type: "POST",
+          success: function (res) {
+            console.log(JSON.stringify(res))
+          },
+          error: function (res) {
+            console.log(JSON.stringify(res))
+          }
+        });
+      });
+    });
+  </script>
+
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="/src/main.js"></script>
+
+</body>
+</html>

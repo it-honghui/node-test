@@ -1,0 +1,35 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NftMarketRouter
+    network: rinkeby
+    source:
+      address: "0x26e972791d0a49bdae664b958ce04e6ffdc9af95"
+      abi: NftMarketRouter
+      startBlock: 10387215
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - BuyNft
+        - Cancel
+        - PriceChange
+        - SellNft
+      abis:
+        - name: NftMarketRouter
+          file: ./abis/NftMarketRouter.json
+        - name: IERC721
+          file: ./abis/IERC721.json
+      eventHandlers:
+        - event: BuyNft(address,uint256,address,address,uint256)
+          handler: handleBuyNft
+        - event: Cancel(address,uint256,address)
+          handler: handleCancel
+        - event: PriceChange(address,uint256,address,uint256)
+          handler: handlePriceChange
+        - event: SellNft(address,uint256,address,uint256)
+          handler: handleSellNft
+      file: ./src/mapping.ts

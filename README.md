@@ -7,7 +7,7 @@
 - merkletreejs-solidity
 - metacoin
 - subgraph
-  - cryptopunks
+  - nft-market
   - opensea
 - truffle-init
 - vue-test

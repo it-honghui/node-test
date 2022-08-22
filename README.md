@@ -20,7 +20,15 @@
 ```shell
 git config --global http.proxy 'http://127.0.0.1:7890'
 git config --global https.proxy 'https://127.0.0.1:7890'
+
+git config --global http.proxy 'socks5://127.0.0.1:7891'
+git config --global https.proxy 'socks5://127.0.0.1:7891'
+
 git config -l --global
+
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
 ```
 
 > npm和yarn的源、代理设置和代理取消

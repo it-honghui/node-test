@@ -1,7 +1,7 @@
 require('dotenv').config()
 const fs = require('fs')
 const HDWalletProvider = require('truffle-hdwallet-provider');
-const mnemonic = fs.readFileSync('./sk.txt').toString().trim()
+// const mnemonic = fs.readFileSync('./sk.txt').toString().trim()
 
 module.exports = {
 
@@ -28,7 +28,7 @@ module.exports = {
     mainnet: {
       provider: function () {
         return new HDWalletProvider(
-          mnemonic,
+          `${process.env.PRIVATE_KEY}`,
           `https://mainnet.infura.io/${process.env.WEB3_INFURA_PROJECT_ID}`
         )
       },
@@ -41,7 +41,7 @@ module.exports = {
     kovan: {
       provider: () =>
         new HDWalletProvider(
-          mnemonic,
+          `${process.env.PRIVATE_KEY}`,
           `https://kovan.infura.io/v3/${process.env.WEB3_INFURA_PROJECT_ID}`
         ),
       network_id: '42',

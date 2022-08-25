@@ -5,6 +5,8 @@ const keccak256 = require('keccak256')
 const base58check = require('base58check')
 const prompt = require('prompt')
 const colors = require('colors/safe')
+const wif = require('wif');
+
 
 function getPrivateKey() {
     while (true) {
@@ -32,7 +34,8 @@ function log(message, type = 'white') {
 const wallet = {
     createWalletOfBTC: function () {
         const privKey = getPrivateKey()
-        log(`私钥: ${privKey.toString('hex')}`, 'brightMagenta')
+        log(`十六进制私钥: ${privKey.toString('hex')}`, 'brightMagenta')
+        log(`Base58私钥: ${wif.encode(0x80, Buffer.from(privKey, 'hex'), true)}`, 'brightMagenta')
         const pubKey = secp256k1.publicKeyCreate(privKey)
         const pubKeyString = Buffer.from(pubKey).toString('hex')
         log(`公钥: ${pubKeyString}`)
@@ -40,18 +43,18 @@ const wallet = {
         const ripemd160Value = new ripemd160().update(sha256Value, 'hex').digest('hex')
         log(`钱包地址: ${ripemd160Value}`)
         const wallet = base58check.encode(ripemd160Value)
-        log(`base58钱包地址: ${wallet}`)
+        log(`Base58钱包地址: ${wallet}`)
     },
     createWalletOfETH: function () {
         const privKey = getPrivateKey()
-        log(`私钥: ${privKey.toString('hex')}`, 'brightMagenta')
+        log(`十六进制私钥: ${privKey.toString('hex')}`, 'brightMagenta')
         const pubKey = secp256k1.publicKeyCreate(privKey, false).slice(1)
         const pubKeyString = Buffer.from(pubKey).toString('hex')
         log(`公钥: ${pubKeyString}`)
         const address = keccak256(Buffer.from(pubKeyString, 'hex')).slice(-20).toString('hex');
         log(`钱包地址: ${toChecksumAddress(address)}`)
         const wallet = base58check.encode(address)
-        log(`base58钱包地址: ${wallet}`)
+        log(`Base58钱包地址: ${wallet}`)
     }
 }
 

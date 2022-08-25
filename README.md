@@ -1,6 +1,7 @@
 # node-test
 
 - address-generation
+- coin-wallet
 - ecrecover
 - graphql
 - graphql-express
